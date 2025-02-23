@@ -15,8 +15,8 @@ jobs:
       
       - name: 设置 Git
         run: |
-          git config user.name "NowScott"
-          git config user.email "nowscott@qq.com"
+          git config user.name "kky529999"
+          git config user.email "kky11@163.com"
 
       - name: 设置 Python
         uses: actions/setup-python@v5
