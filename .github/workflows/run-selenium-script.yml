@@ -25,8 +25,8 @@ jobs:
 
       - name: 设置 Git 配置
         run: |
-          git config --global user.name "NowScott"
-          git config --global user.email "nowscott@qq.com"
+          git config --global user.name "kky529999"
+          git config --global user.email "kky11@163.com"
 
       - name: 安装 Chrome
         run: |

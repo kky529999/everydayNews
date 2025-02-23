@@ -29,7 +29,7 @@ def fetch_notion_users(api_key, database_id):
     url = f"https://api.notion.com/v1/databases/{database_id}/query"
     headers = {
         "Authorization": f"Bearer {api_key}",
-        "Notion-Version": "2021-05-13",
+        "Notion-Version": "2025-02-23",
         "Content-Type": "application/json"
     }
     response = requests.post(url, headers=headers)
@@ -124,7 +124,7 @@ def main():
     # 创建一个ConfigParser对象
     config = configparser.ConfigParser()
     # 读取配置文件
-    config.read('notifications.ini')
+    config.read('notifications.ini', encoding='utf-8')
     # 获取开头通知、结尾通知和结尾注释内容，如果不存在则设置为空字符串
     global start_notification, end_notification, end_comment
     start_notification = config.get('开头通知', 'content', fallback='')
@@ -144,7 +144,7 @@ def main():
         print(f"{yesterday_news_filename} 不存在，跳过发送邮件")
         sys.exit(0)
 
-    with open(yesterday_news_filename, 'r') as f:
+    with open(yesterday_news_filename, 'r', encoding='utf-8') as f:
         yesterday_news = f.read()
 
     formatted_news = format_news(yesterday_news)
