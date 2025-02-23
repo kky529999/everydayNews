@@ -29,7 +29,7 @@ def fetch_notion_users(api_key, database_id):
     url = f"https://api.notion.com/v1/databases/{database_id}/query"
     headers = {
         "Authorization": f"Bearer {api_key}",
-        "Notion-Version": "2025-02-23",
+        "Notion-Version": "2021-05-13",
         "Content-Type": "application/json"
     }
     response = requests.post(url, headers=headers)
