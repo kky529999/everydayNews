@@ -37,9 +37,10 @@ def fetch_news(driver, url, selector):
         category = item.find_element(By.CSS_SELECTOR, 'a.c').text
         title = item.find_element(By.CSS_SELECTOR, 'a.t').text
         link = item.find_element(By.CSS_SELECTOR, 'a.t').get_attribute('href')
-        time_str = item.find_element(By.CSS_SELECTOR, 'i').text
-        time = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S")
-        news_data.append({'category': category, 'title': title, 'link': link, 'time': time})
+        if 'digi' not in link.lower():
+            time_str = item.find_element(By.CSS_SELECTOR, 'i').text
+            time = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S")
+            news_data.append({'category': category, 'title': title, 'link': link, 'time': time})
     return news_data
 
 def fetch_all_news():
@@ -105,7 +106,7 @@ def save_news_to_markdown(now, new_news):
             with open(news_filename, 'a', encoding='utf-8') as day_file:
                 day_file.write(markdown_entry)
     if news_written_count > 0:
-        print(f"新闻保存成功，本次更新了 {news_written_count} 条新闻。")
+        print(f"新闻保存成功，本次更新了 {news_written_count} 条新闻，保存到{news_filename}中。")
     else:
         print("没有新的新闻需要更新。")
 
