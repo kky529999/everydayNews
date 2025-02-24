@@ -16,6 +16,7 @@ import configparser
 import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
+from email.utils import formataddr
 
 # 获取环境变量
 def get_env_variable(name):
@@ -51,8 +52,10 @@ def fetch_notion_users(api_key, database_id):
 
 def send_message(sender, password, server, receiver, text):
     msg = MIMEText(text, 'html', 'utf-8')
-    subject = '今日科技早报'
+    today_str = datetime.now(ZoneInfo('Asia/Shanghai')).strftime("%Y-%m-%d")
+    subject = f'今日科技早报【{today_str}】'
     msg['Subject'] = Header(subject, 'utf-8')  # type: ignore # 邮件主题
+    msg['From'] = formataddr(("小宸同学", sender))
     attempt = 1
     while attempt <= 3:
         try:
@@ -86,7 +89,7 @@ def format_news(news_string):
 
 def message(name, formatted_news):
     # 使用用户的名字来创建个性化问候
-    greeting = f"早上好{name}，以下是今日的科技早报"
+    greeting = f"早上好，{name}，以下是今日的科技早报"
     # 检查配置变量是否为空，如果为空则设置为空字符串
     start_notification_text = start_notification if start_notification else ''
     end_notification_text = end_notification if end_notification else ''
@@ -115,11 +118,11 @@ def switch_to_parent_if_src():
 def main():
     switch_to_parent_if_src()
     
-    # # 以下部分是本地测试时使用的代码
-    # from dotenv import load_dotenv
-    # dotenv_path = '.env'
-    # load_dotenv(dotenv_path)
-    # # 以上部分是本地测试时使用的代码
+    # 以下部分是本地测试时使用的代码
+    from dotenv import load_dotenv
+    dotenv_path = '.env'
+    load_dotenv(dotenv_path)
+    # 以上部分是本地测试时使用的代码
     
     # 创建一个ConfigParser对象
     config = configparser.ConfigParser()
