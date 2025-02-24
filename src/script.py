@@ -46,7 +46,7 @@ def fetch_news(driver, url, selector):
 def fetch_all_news():
     driver = setup_driver()
     url = 'https://www.ithome.com/list/'
-    news_data = fetch_news(driver, url, 'ul.datel')
+    news_data = fetch_news(driver, url, 'ul.datel') 
     driver.quit()
     return news_data
 
